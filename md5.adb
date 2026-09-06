@@ -1,15 +1,19 @@
 package body MD5 is
 
+   use type Interfaces.Unsigned_8;
+   use type Interfaces.Unsigned_32;
+   use type Interfaces.Unsigned_64;
+
    -- Per-round shift amounts
    S : constant array (0 .. 63) of Natural :=
-     (7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
+     [7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
       5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,
       4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,
-      6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21);
+      6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21];
 
    -- Sine-derived constants for each operation
    K : constant array (0 .. 63) of Word :=
-     (16#d76aa478#, 16#e8c7b756#, 16#242070db#, 16#c1bdceee#,
+     [16#d76aa478#, 16#e8c7b756#, 16#242070db#, 16#c1bdceee#,
       16#f57c0faf#, 16#4787c62a#, 16#a8304613#, 16#fd469501#,
       16#698098d8#, 16#8b44f7af#, 16#ffff5bb1#, 16#895cd7be#,
       16#6b901122#, 16#fd987193#, 16#a679438e#, 16#49b40821#,
@@ -24,7 +28,7 @@ package body MD5 is
       16#f4292244#, 16#432aff97#, 16#ab9423a7#, 16#fc93a039#,
       16#655b59c3#, 16#8f0ccc92#, 16#ffeff47d#, 16#85845dd1#,
       16#6fa87e4f#, 16#fe2ce6e0#, 16#a3014314#, 16#4e0811a1#,
-      16#f7537e82#, 16#bd3af235#, 16#2ad7d2bb#, 16#eb86d391#);
+      16#f7537e82#, 16#bd3af235#, 16#2ad7d2bb#, 16#eb86d391#];
 
    -- Helper to verify state explicitly since Pre-conditions don't run without assertions enabled
    procedure Verify_Open (Ctx : Context) is
@@ -105,9 +109,9 @@ package body MD5 is
    procedure Init (Ctx : out Context) is
    begin
       Ctx.Status := Open;
-      Ctx.State  := (16#67452301#, 16#EFCDAB89#, 16#98BADCFE#, 16#10325476#);
+      Ctx.State  := [16#67452301#, 16#EFCDAB89#, 16#98BADCFE#, 16#10325476#];
       Ctx.Count  := 0;
-      Ctx.Buffer := (others => 0);
+      Ctx.Buffer := [others => 0];
    end Init;
 
    procedure Update (Ctx : in out Context; Data : in Byte_Array) is
@@ -157,7 +161,7 @@ package body MD5 is
    end Update;
 
    procedure Final (Ctx : in out Context; Digest : out Digest_Type) is
-      Padding : Byte_Array (0 .. 63) := (others => 0);
+      Padding : Byte_Array (0 .. 63) := [others => 0];
       Index   : Natural;
       Pad_Len : Natural;
       Bits    : Interfaces.Unsigned_64 := Ctx.Count;
