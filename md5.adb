@@ -164,7 +164,7 @@ package body MD5 is
       Padding : Byte_Array (0 .. 63) := [others => 0];
       Index   : Natural;
       Pad_Len : Natural;
-      Bits    : Interfaces.Unsigned_64 := Ctx.Count;
+      Bits    : constant Interfaces.Unsigned_64 := Ctx.Count;
    begin
       Verify_Open (Ctx);
 
