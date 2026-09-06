@@ -59,15 +59,15 @@ package MD5 is
      with Global => null;
 
 private
-   type Block_Type is array (0 .. 63) of Byte;
+   subtype Block_Type is Byte_Array (0 .. 63);
    type State_Type is array (0 .. 3) of Word;
 
    -- Internal state representing the MD5 context
    type Context is record
       Status : Context_Status := Closed;
-      State  : State_Type := (16#67452301#, 16#EFCDAB89#, 16#98BADCFE#, 16#10325476#);
+      State  : State_Type := [16#67452301#, 16#EFCDAB89#, 16#98BADCFE#, 16#10325476#];
       Count  : Interfaces.Unsigned_64 := 0; -- Total processed bits
-      Buffer : Block_Type := (others => 0); -- 64-byte processing buffer
+      Buffer : Block_Type := [others => 0]; -- 64-byte processing buffer
    end record;
 
 end MD5;
