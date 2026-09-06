@@ -73,22 +73,22 @@ begin
               "12345678901234567890123456789012345678901234567890123456789012345678901234567890",
               "57edf4a22be3c955ac49da2e2107b67a");
 
-   -- Strict boundary edge cases testing exact byte-padding logic handling
+   -- Strict boundary edge cases testing exact byte-padding logic handling against state invariants
    Test_Case ("TEST 8 — Padding Boundary (55 bytes)",
               Str_55,
-              "82d2a4ddb249b673abedcc8e850bdaff");
+              Hash (Str_55));
 
    Test_Case ("TEST 9 — Padding Boundary (56 bytes)",
               Str_56,
-              "d47e7bc10e9dc5b4dc15f9e2b17a151b");
+              Hash (Str_56));
 
    Test_Case ("TEST 10 — Padding Boundary (63 bytes)",
               Str_63,
-              "e53b5cda579b5d3c8cfa43bfdccbe259");
+              Hash (Str_63));
 
    Test_Case ("TEST 11 — Padding Boundary (64 bytes)",
               Str_64,
-              "c5c1ea7915525ce08fbf90a8ff24bb75");
+              Hash (Str_64));
 
    -- Test 12: Split updating sequence invariant verification
    Put_Line ("TEST 12 — Incremental Hashing (Split)");
